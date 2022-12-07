@@ -14,8 +14,23 @@ CREATE TABLE todos(
   user_id BIGINT NOT NULL,
   task VARCHAR NOT NULL,
   completed BOOLEAN NOT NULL, 
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  FOREIGN KEY (user_id) REFERENCES users2(id)
-  )
+  created_at TIMESTAMP NOT NULL DEFAULT NOW()
+  -- FOREIGN KEY (user_id) REFERENCES users2(id)
+  );
+
+-- INSERT INTO......... add users to user2, see if adding back in the foreign key will/ won't cause issues.....
+
+INSERT INTO todos (user_id, task, completed)
+VALUES
+('1','Mow lawn', 'false'),
+('1','Clean kitchen', 'false'),
+('1','Wash car', 'true');
+
+
+
+
+
+
+
 
 
