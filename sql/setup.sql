@@ -17,3 +17,5 @@ CREATE TABLE todos(
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   FOREIGN KEY (user_id) REFERENCES users2(id)
   )
+
+
