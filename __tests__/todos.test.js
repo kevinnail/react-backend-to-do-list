@@ -52,8 +52,14 @@ describe('blog routes', () => {
   it.only('PUT /api/v1/todos/:id', async () => {
     const [agent] = await registerAndLogin();
     const resp = await agent
-      .put('/api/v1/todos/:id')
-      .send({ id: '1', completed: 'true' });
+      .put('/api/v1/todos/1')
+      .send({ todo_id: 1, mark: 'true' });
     expect(resp.status).toBe(200);
+    expect(resp.body.completed).toBe(true);
+    const resp2 = await agent
+      .put('/api/v1/todos/1')
+      .send({ todo_id: 1, mark: 'false' });
+    expect(resp2.status).toBe(200);
+    expect(resp2.body.completed).toBe(false);
   });
 });
