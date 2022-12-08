@@ -34,7 +34,7 @@ describe('blog routes', () => {
     expect(resp.status).toBe(200);
   });
 
-  it.only('POST /api/v1/todos', async () => {
+  it('POST /api/v1/todos', async () => {
     const [agent] = await registerAndLogin();
     const resp = await agent
       .post('/api/v1/todos')
@@ -47,5 +47,13 @@ describe('blog routes', () => {
       task: 'Test task',
       user_id: '1',
     });
+  });
+
+  it.only('PUT /api/v1/todos/:id', async () => {
+    const [agent] = await registerAndLogin();
+    const resp = await agent
+      .put('/api/v1/todos/:id')
+      .send({ id: '1', completed: 'true' });
+    expect(resp.status).toBe(200);
   });
 });
