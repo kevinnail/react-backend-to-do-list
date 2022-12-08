@@ -3,6 +3,7 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const UserService = require('../lib/services/UserService');
+const Todo = require('../lib/models/Todo.js');
 
 const mockUser = {
   firstName: 'Test',
@@ -49,7 +50,7 @@ describe('blog routes', () => {
     });
   });
 
-  it.only('PUT /api/v1/todos/:id', async () => {
+  it('PUT /api/v1/todos/:id', async () => {
     const [agent] = await registerAndLogin();
     const resp = await agent
       .put('/api/v1/todos/1')
@@ -61,5 +62,26 @@ describe('blog routes', () => {
       .send({ todo_id: 1, mark: 'false' });
     expect(resp2.status).toBe(200);
     expect(resp2.body.completed).toBe(false);
+  });
+
+  it.only('DELETE /api/v1/todos/:id', async () => {
+    const [agent, user] = await registerAndLogin();
+    const task = 'Test task that needs to be deleted';
+    const todo = await Todo.postNewToDo(task, user.id);
+
+    const resp = await agent.delete(`/api/v1/todos/${todo.id}`);
+    expect(resp.status).toBe(200);
+
+    // const resp2 = await agent
+    //   .delete(`/api/v1/todos/${resp.body.id}`)
+    //   .send({ todo_id: `${resp.body.id}` });
+    // console.log('resp2.body-------------------', resp2.body);
+    // expect(resp2.body).toEqual({
+    //   id: expect.any(String),
+    //   user_id: '1',
+    //   task: 'Test task that needs to be deleted',
+    //   completed: false,
+    //   created_at: expect.any(String),
+    // });
   });
 });
