@@ -71,17 +71,5 @@ describe('blog routes', () => {
 
     const resp = await agent.delete(`/api/v1/todos/${todo.id}`);
     expect(resp.status).toBe(200);
-
-    // const resp2 = await agent
-    //   .delete(`/api/v1/todos/${resp.body.id}`)
-    //   .send({ todo_id: `${resp.body.id}` });
-    // console.log('resp2.body-------------------', resp2.body);
-    // expect(resp2.body).toEqual({
-    //   id: expect.any(String),
-    //   user_id: '1',
-    //   task: 'Test task that needs to be deleted',
-    //   completed: false,
-    //   created_at: expect.any(String),
-    // });
   });
 });
