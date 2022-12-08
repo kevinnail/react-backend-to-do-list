@@ -64,7 +64,7 @@ describe('blog routes', () => {
     expect(resp2.body.completed).toBe(false);
   });
 
-  it.only('DELETE /api/v1/todos/:id', async () => {
+  it('DELETE /api/v1/todos/:id', async () => {
     const [agent, user] = await registerAndLogin();
     const task = 'Test task that needs to be deleted';
     const todo = await Todo.postNewToDo(task, user.id);
@@ -72,4 +72,9 @@ describe('blog routes', () => {
     const resp = await agent.delete(`/api/v1/todos/${todo.id}`);
     expect(resp.status).toBe(200);
   });
+
+  // it.only('GET /api/v1/todos/:id', async () => {
+  //   const agent = await registerAndLogin();
+  //   const resp = request.agent('');
+  // });
 });
