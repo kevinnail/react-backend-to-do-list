@@ -72,9 +72,4 @@ describe('blog routes', () => {
     const resp = await agent.delete(`/api/v1/todos/${todo.id}`);
     expect(resp.status).toBe(200);
   });
-
-  // it.only('GET /api/v1/todos/:id', async () => {
-  //   const agent = await registerAndLogin();
-  //   const resp = request.agent('');
-  // });
 });
