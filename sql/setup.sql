@@ -25,7 +25,7 @@ VALUES
 ('1','Clean kitchen', 'false'),
 ('1','Wash car', 'true'),
 ('2','Do sit ups', 'false'),
-('2','Pain the house', 'false'),
+('2','Paint the house', 'false'),
 ('3','Get groceries', 'true');
 
 
