@@ -18,7 +18,7 @@
       [
         "error-affirmations",
         {
-          "mode": "info",
+          "mode": "normal",
           "colorTheme": "rainbow",
           "borderTheme": "banner"
         }
