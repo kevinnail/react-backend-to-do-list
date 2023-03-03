@@ -35,6 +35,12 @@ describe('blog routes', () => {
     expect(resp.status).toBe(200);
   });
 
+  it.only('GET /api/v1/todos/:id', async () => {
+    const [agent] = await registerAndLogin();
+    const resp = await agent.get('/api/v1/todos/1');
+    expect(resp.status).toBe(200);
+  });
+
   it('POST /api/v1/todos', async () => {
     const [agent] = await registerAndLogin();
     const resp = await agent
