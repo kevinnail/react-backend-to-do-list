@@ -39,6 +39,13 @@ describe('blog routes', () => {
     const [agent] = await registerAndLogin();
     const resp = await agent.get('/api/v1/todos/1');
     expect(resp.status).toBe(200);
+    expect(resp.body).toEqual({
+      completed: false,
+      created_at: expect.any(String),
+      id: expect.any(String),
+      task: 'Mow lawn',
+      user_id: '1',
+    });
   });
 
   it('POST /api/v1/todos', async () => {
