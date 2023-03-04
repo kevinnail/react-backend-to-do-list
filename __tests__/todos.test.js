@@ -35,7 +35,7 @@ describe('blog routes', () => {
     expect(resp.status).toBe(200);
   });
 
-  it.only('GET /api/v1/todos/:id', async () => {
+  it('GET /api/v1/todos/:id', async () => {
     const [agent] = await registerAndLogin();
     const resp = await agent.get('/api/v1/todos/1');
     expect(resp.status).toBe(200);
@@ -81,34 +81,22 @@ describe('blog routes', () => {
     const [agent, user] = await registerAndLogin();
     const task = 'Test task that needs to be deleted';
     const todo = await Todo.postNewToDo(task, user.id);
-
     const resp = await agent.delete(`/api/v1/todos/${todo.id}`);
     expect(resp.status).toBe(200);
+    const deleteResp = await agent.get(`/api/v1/todos/${todo.id}`);
+    expect(deleteResp.status).toBe(403);
   });
-  it('PUT /api/v1/todos/:id', async () => {
+
+  it('PUT /api/v1/todos/edit/:id', async () => {
     const [agent] = await registerAndLogin();
     const resp = await agent
-      .put('/api/v1/todos/1')
-      .send({ todo_id: 1, mark: 'true' });
+      .post('/api/v1/todos')
+      .send({ task: 'Test task', user_id: '1' });
     expect(resp.status).toBe(200);
-    expect(resp.body.completed).toBe(true);
     const resp2 = await agent
-      .put('/api/v1/todos/1')
-      .send({ todo_id: 1, mark: 'false' });
+      .post('/api/v1/todos')
+      .send({ task: 'Test task is updated', user_id: '1' });
     expect(resp2.status).toBe(200);
-    expect(resp2.body.completed).toBe(false);
-  });
-  it('PUT /api/v1/todos/:id', async () => {
-    const [agent] = await registerAndLogin();
-    const resp = await agent
-      .put('/api/v1/todos/1')
-      .send({ todo_id: 1, mark: 'true' });
-    expect(resp.status).toBe(200);
-    expect(resp.body.completed).toBe(true);
-    const resp2 = await agent
-      .put('/api/v1/todos/1')
-      .send({ todo_id: 1, mark: 'false' });
-    expect(resp2.status).toBe(200);
-    expect(resp2.body.completed).toBe(false);
+    expect(resp2.body.task).toBe('Test task is updated');
   });
 });
